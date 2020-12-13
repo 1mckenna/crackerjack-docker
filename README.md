@@ -1,9 +1,9 @@
 # crackerjack-docker
-Crackerjack Docker
+A docker conatiner for Crackerjack (Web Interface for hashcat)
 
-# Based off the work done here
+# Based off the work done here (Thanks!)
 * Crackerjack (https://github.com/ctxis/crackerjack)
-* Hashcat Docker(https://github.com/dizcza/docker-hashcat) (THANKS!)
+* Hashcat Docker(https://github.com/dizcza/docker-hashcat)
 
 # Kali Rolling Setup (tested on 2020.4)
 
