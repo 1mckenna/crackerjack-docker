@@ -61,6 +61,7 @@ ln -s /sbin/ldconfig /sbin/ldconfig.real
 * stop.sh - Stops the container
 * shell.sh - Exec into the running container
 
-# References
-https://github.com/ctxis/crackerjack
-https://github.com/dizcza/docker-hashcat
+# Related Repos
+* https://github.com/ctxis/crackerjack
+* https://github.com/dizcza/docker-hashcat
+* https://github.com/NVIDIA/nvidia-container-runtime
