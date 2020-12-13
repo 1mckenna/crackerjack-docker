@@ -1,7 +1,7 @@
 # Crackerjack-Docker
 A docker container for Crackerjack (Web Interface for hashcat)
 
-# Based off the work done here (Thanks!)
+# Based off the work here
 * Crackerjack (https://github.com/ctxis/crackerjack)
 * Hashcat Docker(https://github.com/dizcza/docker-hashcat)
 
