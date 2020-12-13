@@ -11,7 +11,7 @@ A docker container for Crackerjack (Web Interface for hashcat)
 ## Pre-Req
 1. Install Nvidia Drivers, Nvidia Cuda Toolkit and docker
 `sudo apt-get install nvidia-driver nvidia-cuda-toolkit`
-2. Install Nvidia Container Runtime (Follow the steps outlined in thier git if the below do not work)
+2. Install Nvidia Container Runtime (Follow the steps outlined in thier git if the below doesn't work)
 ```
 curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | \
   sudo apt-key add -
@@ -32,13 +32,11 @@ sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
 ExecStart= 
 ExecStart=/usr/sbin/dockerd --host=fd:// --add-runtime=nvidia=/usr/bin/nvidia-container-runtime
 EOF
+ln -s /sbin/ldconfig /sbin/ldconfig.real
 ```
 ```
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-```
-```
-ln -s /sbin/ldconfig /sbin/ldconfig.real
 ```
 
 # Container Setup Notes
