@@ -14,6 +14,7 @@ else
         openssl req -x509 -nodes -days 3650 -newkey rsa:4096 -subj \'"$certSubject"\' -keyout /root/crackerjack/data/config/http/ssl.pem -out /root/crackerjack/data/config/http/ssl.crt 
     fi
 fi
+ldconfig
 mkdir -p /root/crackerjack/data/uploads && chown -R www-data:www-data /root/crackerjack/data/uploads && chmod -R 660 /root/crackerjack/data/uploads
 su www-data -s /bin/bash
 . venv/bin/activate
