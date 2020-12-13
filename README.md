@@ -5,7 +5,8 @@ A docker container for Crackerjack (Web Interface for hashcat)
 * Crackerjack (https://github.com/ctxis/crackerjack)
 * Hashcat Docker(https://github.com/dizcza/docker-hashcat)
 
-# Kali Rolling Setup (tested on 2020.4)
+# Kali Rolling Setup
+* Built and tested on Kali Rolling 2020.4 
 
 ## Pre-Req
 1. Install Nvidia Drivers, Nvidia Cuda Toolkit and docker
