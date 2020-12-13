@@ -1,5 +1,5 @@
-# crackerjack-docker
-A docker conatiner for Crackerjack (Web Interface for hashcat)
+# Crackerjack-Docker
+A docker container for Crackerjack (Web Interface for hashcat)
 
 # Based off the work done here (Thanks!)
 * Crackerjack (https://github.com/ctxis/crackerjack)
