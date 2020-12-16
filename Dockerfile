@@ -29,7 +29,7 @@ ENV HCXKEYS_VERSION        master
 
 # Update & install packages for installing hashcat and nginx
 RUN apt-get update && \
-    apt-get install -y wget make clinfo build-essential git libcurl4-openssl-dev libssl-dev zlib1g-dev libcurl4-openssl-dev libssl-dev screen python3-venv python3-pip sqlite3 nginx
+    apt-get install -y wget make clinfo build-essential git libcurl4-openssl-dev libssl-dev zlib1g-dev libcurl4-openssl-dev libssl-dev screen python3-venv python3-pip sqlite3 nginx libnginx-mod-http-perl
 
 WORKDIR /root
 
@@ -53,10 +53,12 @@ WORKDIR /root/crackerjack
 RUN python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && flask db init && flask db migrate && flask db upgrade && deactivate
 RUN chown -R www-data:www-data /root/crackerjack
 RUN mkdir -p /root/crackerjack/data/config/http
-COPY ./vhost.conf /etc/nginx/sites-enabled/crackerjack
+RUN echo "load_module /usr/lib/nginx/modules/ngx_http_perl_module.so;" > /etc/nginx/modules-enabled/50-mod-http-perl.conf && echo "env NGINX_HOST;">> /etc/nginx/modules-enabled/50-mod-http-perl.conf && echo "env NGINX_PORT;">> /etc/nginx/modules-enabled/50-mod-http-perl.conf
+RUN echo "perl_set \$NGINX_HOST 'sub { return \$ENV{\"NGINX_HOST\"}; }';" > /etc/nginx/conf.d/env.conf && echo "perl_set \$NGINX_PORT 'sub { return \$ENV{\"NGINX_PORT\"}; }';" >> /etc/nginx/conf.d/env.conf
+COPY ./vhost.conf /etc/nginx/sites-available/crackerjack
+RUN ln -s /etc/nginx/sites-available/crackerjack /etc/nginx/sites-enabled/crackerjack
 RUN mkdir /var/www/.hashcat && chown -R www-data:www-data /var/www/.hashcat
 COPY ./entrypoint.sh .
 RUN chmod 755 ./entrypoint.sh
 #Run the App once the container launches
 CMD [ "/bin/bash","/root/crackerjack/entrypoint.sh" ]
-EXPOSE 443
