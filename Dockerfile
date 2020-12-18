@@ -29,7 +29,7 @@ ENV HCXKEYS_VERSION        master
 
 # Update & install packages for installing hashcat and nginx
 RUN apt-get update && \
-    apt-get install -y wget make clinfo build-essential git libcurl4-openssl-dev libssl-dev zlib1g-dev libcurl4-openssl-dev libssl-dev screen python3-venv python3-pip sqlite3 nginx libnginx-mod-http-perl
+    apt-get install -y cron wget make clinfo build-essential git libcurl4-openssl-dev libssl-dev zlib1g-dev libcurl4-openssl-dev libssl-dev screen python3-venv python3-pip sqlite3 nginx libnginx-mod-http-perl
 
 WORKDIR /root
 
