@@ -48,11 +48,12 @@ RUN ln -s /root/kwprocessor/kwp /usr/bin/kwp
 #Install CrackerJack
 ENV LC_ALL=C.UTF-8 
 ENV LANG=C.UTF-8
+ENV NGINX_HOST=127.0.0.1
+ENV NGINX_PORT=4433
 RUN git clone https://github.com/ctxis/crackerjack
 WORKDIR /root/crackerjack
 RUN python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && flask db init && flask db migrate && flask db upgrade && deactivate
 RUN chown -R www-data:www-data /root/crackerjack
-RUN mkdir -p /root/crackerjack/data/config/http
 RUN echo "load_module /usr/lib/nginx/modules/ngx_http_perl_module.so;" > /etc/nginx/modules-enabled/50-mod-http-perl.conf && echo "env NGINX_HOST;">> /etc/nginx/modules-enabled/50-mod-http-perl.conf && echo "env NGINX_PORT;">> /etc/nginx/modules-enabled/50-mod-http-perl.conf
 RUN echo "perl_set \$NGINX_HOST 'sub { return \$ENV{\"NGINX_HOST\"}; }';" > /etc/nginx/conf.d/env.conf && echo "perl_set \$NGINX_PORT 'sub { return \$ENV{\"NGINX_PORT\"}; }';" >> /etc/nginx/conf.d/env.conf
 COPY ./vhost.conf /etc/nginx/sites-available/crackerjack
