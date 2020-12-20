@@ -1,10 +1,6 @@
 # Crackerjack-Docker
 A docker container for Crackerjack (Web Interface for hashcat)
 
-# Based off the work here
-* Crackerjack (https://github.com/ctxis/crackerjack)
-* Hashcat Docker(https://github.com/dizcza/docker-hashcat)
-
 # Kali Rolling Setup
 * Built and tested on Kali Rolling 2020.4 
 
@@ -50,8 +46,8 @@ You can modify the default host and port crackerjack is served on by passing in 
 
 ## SSL via Reverse Proxy (i.e. traefik)
 * If you're planning to utilize a reverse proxy to serve the application, this can be easily done by modifying the start.sh script to comment out the standard configuration and uncomment the related variables and dockerCMD under the Reverse Proxy Section (sample values have been left as an example).
-* The logs for gunicorn are being logged to /var/log/gunicorn.log inside the conatiner if you're wanting to bind mount them.
-  * You can customize the logging by modifyng entrypoint.sh and rerunning build.sh
+* The logs for gunicorn are being logged to /var/log/gunicorn.log inside the container if you're wanting to bind mount them.
+  * Additionally, you can customize the logging by modifyng entrypoint.sh and rerunning build.sh
 
 ## Persistent Data 
 * If you are wanting to persist data you need to set your volume mount to /root/crackerjack/data as all persistant data is stored here.
@@ -66,11 +62,13 @@ You can modify the default host and port crackerjack is served on by passing in 
 
 ## Helper Scripts
 * build.sh - Build the Dockerfile (also stops and removes the container if its currently running)
-* start.sh - Runs/Starts the container with the default settings
-* stop.sh - Stops and removes the container
+* start.sh - Runs or Starts the container, additionally will prompt for container removal if it already exists.
+* stop.sh - Stops and asks if you would like to remove the container
 * shell.sh - Exec into the running container
 
-# Related Repos
-* https://github.com/ctxis/crackerjack
-* https://github.com/dizcza/docker-hashcat
+# Based off the work here
+* Crackerjack (https://github.com/ctxis/crackerjack)
+* Hashcat Docker(https://github.com/dizcza/docker-hashcat)
+
+# Related Repo
 * https://github.com/NVIDIA/nvidia-container-runtime
