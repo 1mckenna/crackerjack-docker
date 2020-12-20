@@ -32,7 +32,7 @@ A docker container for Crackerjack (Web Interface for hashcat)
 
 
 # Container Setup Notes
-## NGINX Servername and Port
+## Useful Environment Variables
 You can modify the default host and port crackerjack is served on by passing in the below environment variables when you start the container.
 
 | **Environment Variable** | **Comment** | **Default Value**
@@ -40,12 +40,18 @@ You can modify the default host and port crackerjack is served on by passing in 
 | NGINX_HOST                 | Used to set the nginx server_name value| 127.0.0.1         |
 | NGINX_PORT                 | Used to set the port being exposed on the docker frontend | 4433               |
 | CERTSUBJECT                | Used to set the certificate subject to something other than the default| /C=US/O=Crackerjack/CB=crackerjack.lan |
+| TRAEFIK_ENABLED            | Used to enable the reverse proxy setup in the entrypoint.sh script.</br>Please modify the start.sh script if using this option| unset |
 
 
 ## SSL
 * If you're wanting to use your own certificates bind mount them to the following locations otherwise they will be generated on the start of the container
   * /root/crackerjack/data/config/http/ssl.pem
   * /root/crackerjack/data/config/http/ssl.crt
+
+## SSL via Reverse Proxy (i.e. traefik)
+* If you're planning to utilize a reverse proxy to serve the application, this can be easily done by modifying the start.sh script to comment out the standard configuration and uncomment the related variables and dockerCMD under the Reverse Proxy Section (sample values have been left as an example).
+* The logs for gunicorn are being logged to /var/log/gunicorn.log inside the conatiner if you're wanting to bind mount them.
+  * You can customize the logging by modifyng entrypoint.sh and rerunning build.sh
 
 ## Persistent Data 
 * If you are wanting to persist data you need to set your volume mount to /root/crackerjack/data as all persistant data is stored here.
