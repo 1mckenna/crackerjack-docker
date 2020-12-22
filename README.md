@@ -1,8 +1,8 @@
 # Crackerjack-Docker
-A docker container for Crackerjack (Web Interface for hashcat)
+A docker container for [Crackerjack (Web Interface for hashcat)](https://github.com/ctxis/crackerjack)
 
 # Kali Rolling Setup
-* Built and tested on Kali Rolling 2020.4 
+* Built and tested on Kali Rolling 2020.4
 
 ## Setup Nvidia Docker Environment
 1. Install Nvidia Drivers, Nvidia Cuda Toolkit and docker
@@ -54,17 +54,30 @@ You can modify the default host and port crackerjack is served on by passing in 
   * `docker volume create crackerjack`
   * Then ensure to mount the volume to the container via the following docker option `--mount source=crackerjack,target=/root/crackerjack/data`
 
-## Crackerjack Settings
-* Hashcat executable: /root/hashcat/hashcat
-* Rules Path: /root/hashcat/rules
-* Wordlist Path: /wordlists [check or modify in start.sh]
-* Uploaded Hashes Path: /root/crackerjack/data/uploads
+## Crackerjack Web App Settings
+| **Setting** | **Setting Location** | **Suggested Value**
+| :------------------------- | :--------------------: |:---------------:|
+| Hashcat Executable Path| Settings &#8594; Admin Settings &#8594; Hashcat | /root/hashcat/hashcat |
+| Hashcat Rules Path | Settings &#8594; Admin Settings &#8594; Hashcat | /root/hashcat/rules |
+| Wordlist Path | Settings &#8594; Admin Settings &#8594; Settings | /wordlists </br>(Modify start.sh if changing) |
+| Upload Path | Settings &#8594; Admin Settings &#8594; Settings | /root/crackerjack/data/uploads |
 
 ## Helper Scripts
 * build.sh - Build the Dockerfile (also stops and removes the container if its currently running)
 * start.sh - Runs or Starts the container, additionally will prompt for container removal if it already exists.
 * stop.sh - Stops and asks if you would like to remove the container
 * shell.sh - Exec into the running container
+
+## TLDR Setup
+If you have not yet gotten the nvidia container runtime setup please see the Setup Nvidia Docker Environment section first.
+
+```
+git clone https://github.com/1mckenna/crackerjack-docker.git
+cd crackerjack-docker
+docker volume create crackerjack
+./build.sh
+./start.sh
+```
 
 # Based off the work here
 * Crackerjack (https://github.com/ctxis/crackerjack)
