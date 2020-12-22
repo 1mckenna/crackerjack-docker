@@ -1,7 +1,21 @@
 # Crackerjack-Docker
 A docker container for [Crackerjack (Web Interface for hashcat)](https://github.com/ctxis/crackerjack)
 
-# Kali Rolling Setup
+- [Kali Environment Setup](#kali-environment-setup)
+  * [Setup Nvidia Docker Environment](#setup-nvidia-docker-environment)
+- [Crackerjack Container Setup Notes](#crackerjack-container-setup-notes)
+  * [Environment Variables](#environment-variables)
+  * [SSL](#ssl)
+  * [SSL via Reverse Proxy (i.e. traefik)](#ssl-via-reverse-proxy)
+  * [Persistent Data](#persistent-data)
+  * [Crackerjack Web App Settings](#crackerjack-web-app-settings)
+  * [Helper Scripts](#helper-scripts)
+- [TLDR Setup](#tldr-setup)
+- [Based off the work here](#based-off-the-work-here)
+- [Related Repo](#related-repo)
+
+---
+# Kali Environment Setup
 * Built and tested on Kali Rolling 2020.4
 
 ## Setup Nvidia Docker Environment
@@ -26,9 +40,10 @@ A docker container for [Crackerjack (Web Interface for hashcat)](https://github.
   * `sudo systemctl daemon-reload`
   * `sudo systemctl restart docker`
 
+---
 
-# Container Setup Notes
-## Useful Environment Variables
+# Crackerjack Container Setup Notes
+## Environment Variables
 You can modify the default host and port crackerjack is served on by passing in the below environment variables when you start the container.
 
 | **Environment Variable** | **Comment** | **Default Value**
@@ -40,12 +55,12 @@ You can modify the default host and port crackerjack is served on by passing in 
 
 
 ## SSL
-* If you're wanting to use your own certificates bind mount them to the following locations otherwise they will be generated on the start of the container
+* If you're wanting to use your own certificates bind mount them to the following locations otherwise self signed certs will be generated on the start of the container
   * /root/crackerjack/data/config/http/ssl.pem
   * /root/crackerjack/data/config/http/ssl.crt
 
-## SSL via Reverse Proxy (i.e. traefik)
-* If you're planning to utilize a reverse proxy to serve the application, this can be easily done by modifying the start.sh script to comment out the standard configuration and uncomment the related variables and dockerCMD under the Reverse Proxy Section (sample values have been left as an example).
+## SSL via Reverse Proxy
+* If you're planning to utilize a reverse proxy (i.e. traefik) to serve the application, this can be easily done by modifying the start.sh script to comment out the standard configuration and uncomment the related variables and dockerCMD under the Reverse Proxy Section (sample values have been left as an example).
 * The logs for gunicorn are being logged to /var/log/gunicorn.log inside the container if you're wanting to bind mount them.
   * Additionally, you can customize the logging by modifyng entrypoint.sh and rerunning build.sh
 
@@ -68,7 +83,7 @@ You can modify the default host and port crackerjack is served on by passing in 
 * stop.sh - Stops and asks if you would like to remove the container
 * shell.sh - Exec into the running container
 
-## TLDR Setup
+# TLDR Setup
 If you have not yet gotten the nvidia container runtime setup please see the Setup Nvidia Docker Environment section first.
 
 ```
